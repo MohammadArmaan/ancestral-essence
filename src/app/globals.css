@@ -135,3 +135,15 @@
   opacity: 1;
   transform: translateY(0);
 }
+
+@layer utilities {
+  .delay-200 {
+    transition-delay: 200ms;
+  }
+  .delay-400 {
+    transition-delay: 400ms;
+  }
+  .delay-600 {
+    transition-delay: 600ms;
+  }
+}

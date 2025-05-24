@@ -1,99 +1,4 @@
-// import banner from "@/assets/banner.jpg";
-// import HeroSlider from "@/components/HeroSlider";
-// import Product from "@/components/Product";
-// import { Button } from "@/components/ui/button";
-// import { Skeleton } from "@/components/ui/skeleton";
-// import { getWixServerClient } from "@/lib/wix-client.server";
-// import { getCollectionBySlug } from "@/wix-api/collections";
-// import { queryProducts } from "@/wix-api/products";
-// import { ArrowRight, ChevronLeft, ChevronRight } from "lucide-react";
-// import Image from "next/image";
-// import Link from "next/link";
-// import { Suspense } from "react";
-
-// export default function Home() {
-//   return (
-//     <main className="mx-auto max-w-7xl space-y-10 px-5 py-10">
-//       <div className="relative flex items-center bg-secondary md:h-96">
-//         <div className="z-10 space-y-7 p-10 text-center md:w-1/2">
-//           <h1 className="text-3xl font-bold md:text-4xl">
-//             Nourish Your Pet with Love
-//           </h1>
-//           <p>
-//           Give your pet the best with our premium food and treats for happy tails.
-//           </p>
-
-//           <Button asChild>
-//             <Link href="/shop">
-//               Shop Now <ArrowRight className="ml-2 size-5" />
-//             </Link>
-//           </Button>
-//         </div>
-
-//         {/* Arrow Buttons */}
-//         <button
-//           id="swiper-prev"
-//           className="absolute left-0 top-1/2 z-20 hidden -translate-y-1/2 items-center justify-center rounded-full bg-primary p-2 text-white hover:bg-primary/80 md:flex"
-//         >
-//           <ChevronLeft className="h-6 w-6" />
-//         </button>
-//         <button
-//           id="swiper-next"
-//           className="absolute right-0 top-1/2 z-20 hidden -translate-y-1/2 items-center justify-center rounded-full bg-primary p-2 text-white hover:bg-primary/80 md:flex"
-//         >
-//           <ChevronRight className="h-6 w-6" />
-//         </button>
-
-//         <div className="relative hidden h-full w-1/2 md:block">
-//           <HeroSlider />
-//         </div>
-//       </div>
-//       <Suspense fallback={<LoadingSkeleton />}>
-//         <FeaturedProducts />
-//       </Suspense>
-//     </main>
-//   );
-// }
-
-// async function FeaturedProducts() {
-//   const wixClient = getWixServerClient();
-
-//   const collection = await getCollectionBySlug(wixClient, "featured-products");
-
-//   if (!collection?._id) {
-//     return null;
-//   }
-
-//   const featuredProducts = await queryProducts(wixClient, {
-//     collectionIds: collection._id,
-//   });
-
-//   if (!featuredProducts.items.length) {
-//     return null;
-//   }
-
-//   return (
-//     <div className="space-y-5">
-//       <h2 className="text-2xl font-bold">Featured Products</h2>
-//       <div className="flex grid-cols-2 flex-col gap-5 sm:grid md:grid-cols-3 lg:grid-cols-4">
-//         {featuredProducts.items.map((product) => (
-//           <Product key={product._id} product={product} />
-//         ))}
-//       </div>
-//     </div>
-//   );
-// }
-
-// function LoadingSkeleton() {
-//   return (
-//     <div className="flex grid-cols-2 flex-col gap-5 pt-12 sm:grid md:grid-cols-3 lg:grid-cols-4">
-//       {Array.from({ length: 8 }).map((_, i) => (
-//         <Skeleton key={i} className="h-[26rem] w-full" />
-//       ))}
-//     </div>
-//   );
-// }
-
+import FeaturedSectionProduct from "@/components/FeaturedSectionProduct";
 import HeroSlider from "@/components/HeroSlider";
 import Product from "@/components/Product";
 import { Button } from "@/components/ui/button";
@@ -179,10 +84,10 @@ function FeaturesSection() {
   return (
     <div>
       <div className="mb-12 text-center">
-        <h2 className="mb-4 text-3xl font-bold text-gray-900">
+        <h2 className="mb-4 text-3xl font-bold text-gray-900 dark:text-gray-100">
           Why Pet Parents Choose Us
         </h2>
-        <p className="mx-auto max-w-2xl text-gray-600">
+        <p className="mx-auto max-w-2xl text-muted-foreground">
           Discover what makes our pet food the preferred choice for thousands of
           happy pets and their families
         </p>
@@ -191,15 +96,15 @@ function FeaturesSection() {
         {features.map((feature, index) => (
           <div
             key={index}
-            className="rounded-xl bg-white p-6 text-center shadow-lg transition-all duration-300 hover:-translate-y-2 hover:shadow-xl"
+            className="rounded-xl bg-white dark:bg-gray-900 p-6 text-center shadow-lg transition-all duration-300 hover:-translate-y-2 hover:shadow-xl"
           >
             <div className="mb-4 flex transform justify-center transition-transform duration-300 hover:scale-110">
               {feature.icon}
             </div>
-            <h3 className="mb-2 text-xl font-semibold text-gray-900">
+            <h3 className="mb-2 text-xl font-semibold text-foreground">
               {feature.title}
             </h3>
-            <p className="text-gray-600">{feature.description}</p>
+            <p className="text-muted-foreground">{feature.description}</p>
           </div>
         ))}
       </div>
@@ -212,11 +117,11 @@ function AboutSection() {
     <div className="rounded-2xl bg-gradient-to-br from-primary/5 to-primary/10 p-10">
       <div className="grid grid-cols-1 items-center gap-12 lg:grid-cols-2">
         <div className="space-y-6">
-          <h2 className="text-3xl font-bold text-gray-900">
+          <h2 className="text-3xl font-bold text-foreground">
             Crafted for Your Pet's{" "}
             <span className="text-primary">Wild Heritage</span>
           </h2>
-          <p className="text-lg text-gray-600">
+          <p className="text-lg text-muted-foreground">
             At Ancestral Essence, we believe every pet deserves nutrition that
             honors their natural instincts. Our recipes are inspired by what
             pets would eat in the wild, using premium ingredients sourced from
@@ -231,19 +136,24 @@ function AboutSection() {
             ].map((item, index) => (
               <div key={index} className="flex items-center gap-3">
                 <CheckCircle className="h-5 w-5 flex-shrink-0 text-primary" />
-                <span className="text-gray-700">{item}</span>
+                <span className="text-foreground">{item}</span>
               </div>
             ))}
           </div>
-          <Button className="bg-primary px-8 py-3 text-white hover:bg-primary/90">
-            Learn More About Us
-          </Button>
+          <Link href="/about" passHref legacyBehavior>
+            <Button
+              asChild
+              className="bg-primary px-8 py-3 text-white hover:bg-[oklch(0.606_0.25_292.717)/0.9]"
+            >
+              <a>Learn More About Us</a>
+            </Button>
+          </Link>
         </div>
         <div className="relative">
           <div className="rounded-full bg-primary/20 p-8">
             <div className="rounded-full bg-primary/30 p-8">
               <div className="rounded-full bg-primary/40 p-8">
-                <Heart className="mx-auto h-16 w-16 text-primary" />
+                <Heart className="mx-auto h-16 w-16 text-primary dark:text-white" />
               </div>
             </div>
           </div>
@@ -255,42 +165,33 @@ function AboutSection() {
 
 async function FeaturedProducts() {
   const wixClient = getWixServerClient();
-
   const collection = await getCollectionBySlug(wixClient, "featured-products");
 
-  if (!collection?._id) {
-    return null;
-  }
+  if (!collection?._id) return null;
 
   const featuredProducts = await queryProducts(wixClient, {
     collectionIds: collection._id,
   });
 
-  if (!featuredProducts.items.length) {
-    return null;
-  }
+  if (!featuredProducts.items.length) return null;
 
   return (
-    <div className="space-y-8">
+    <section className="space-y-8">
       <div className="text-center">
-        <h2 className="mb-4 text-3xl font-bold text-gray-900">
+        <h2 className="mb-4 text-3xl font-bold text-foreground">
           Our <span className="text-primary">Bestsellers</span>
         </h2>
-        <p className="mx-auto max-w-2xl text-gray-600">
-          Discover our most popular pet food selections, loved by pets and
-          trusted by their owners worldwide
+        <p className="mx-auto max-w-2xl text-muted-foreground">
+          Discover our most popular pet food selections, loved by pets and trusted by their owners worldwide
         </p>
       </div>
+
       <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-        {featuredProducts.items.slice(0, 4).map((product, index) => (
-          <div
-            key={product._id}
-            className="transform transition-all duration-300 hover:scale-105"
-          >
-            <Product product={product} />
-          </div>
+        {featuredProducts.items.slice(0, 4).map((product) => (
+          <FeaturedSectionProduct key={product._id} product={product} />
         ))}
       </div>
+
       <div className="text-center">
         <Button
           asChild
@@ -302,7 +203,7 @@ async function FeaturedProducts() {
           </Link>
         </Button>
       </div>
-    </div>
+    </section>
   );
 }
 
@@ -367,10 +268,10 @@ function TestimonialsSection() {
   return (
     <div>
       <div className="mb-12 text-center">
-        <h2 className="mb-4 text-3xl font-bold text-gray-900">
+        <h2 className="mb-4 text-3xl font-bold text-foreground">
           What Pet Parents Say
         </h2>
-        <p className="mx-auto max-w-2xl text-gray-600">
+        <p className="mx-auto max-w-2xl text-muted-foreground">
           Read stories from thousands of satisfied customers who've seen amazing
           results with their pets
         </p>
@@ -379,19 +280,19 @@ function TestimonialsSection() {
         {testimonials.map((testimonial, index) => (
           <div
             key={index}
-            className="rounded-xl bg-white p-6 shadow-lg transition-all duration-300 hover:-translate-y-2 hover:shadow-xl"
+            className="rounded-xl bg-white dark:bg-gray-900 p-6 shadow-lg transition-all duration-300 hover:-translate-y-2 hover:shadow-xl"
           >
             <div className="mb-4 flex space-x-1">
               {[...Array(testimonial.rating)].map((_, i) => (
                 <Star key={i} className="h-5 w-5 fill-primary text-primary" />
               ))}
             </div>
-            <p className="mb-4 italic text-gray-600">"{testimonial.text}"</p>
+            <p className="mb-4 italic text-foreground/80">"{testimonial.text}"</p>
             <div className="border-t pt-4">
-              <div className="font-semibold text-gray-900">
+              <div className="font-semibold text-foreground">
                 {testimonial.name}
               </div>
-              <div className="text-sm text-gray-500">
+              <div className="text-sm text-muted-foreground">
                 {testimonial.location}
               </div>
               <div className="text-sm font-medium text-primary">
@@ -414,11 +315,11 @@ function CTASection() {
         Get exclusive offers, pet care tips, and be the first to know about new
         products. Plus, enjoy 15% off your first order when you subscribe!
       </p>
-      <div className="mx-auto flex max-w-md flex-col gap-4 sm:flex-row">
+      <div className="mx-auto flex items-center max-w-md flex-col gap-4 sm:flex-row">
         <input
           type="email"
           placeholder="Enter your email"
-          className="flex-1 rounded-lg border-0 px-4 py-3 text-gray-900 focus:ring-2 focus:ring-white"
+          className="flex-1 rounded-lg border-0 px-4 py-3 text-foreground focus:ring-2 focus:ring-white"
         />
         <Button className="bg-white px-8 py-3 text-primary hover:bg-gray-100">
           Subscribe & Save 15%

@@ -84,6 +84,14 @@ export default function Footer() {
                   {" "}
                   About{" "}
                 </Link>
+                <Link
+                  href="/blog"
+                  title=""
+                  className="flex text-base transition-all duration-200 hover:text-primary focus:text-primary"
+                >
+                  {" "}
+                  Blog{" "}
+                </Link>
               </li>
             </ul>
           </div>
