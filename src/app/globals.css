@@ -79,3 +79,59 @@
   background-color: #000;
   opacity: 1;
 }
+
+/* src/styles/animations.css */
+.scroll-animate {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 0.6s ease-out;
+}
+
+.scroll-animate.animate {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.feature-card {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 0.6s ease-out;
+}
+
+.scroll-animate.animate .feature-card {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.product-card {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 0.6s ease-out;
+}
+
+.scroll-animate.animate .product-card {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.testimonial-card {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 0.6s ease-out;
+}
+
+.scroll-animate.animate .testimonial-card {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.stats-card {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 0.6s ease-out;
+}
+
+.scroll-animate.animate .stats-card {
+  opacity: 1;
+  transform: translateY(0);
+}
