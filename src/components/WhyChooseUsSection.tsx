@@ -8,7 +8,7 @@ export default function WhyChooseUsSection() {
         </h2>
         <div className="mt-10 grid grid-cols-1 gap-8 md:grid-cols-3">
           <div className="space-y-4">
-            <div className="text-4xl font-bold text-primary">15,000</div>
+            <div className="text-4xl font-bold text-primary">1,000</div>
             <h3 className="text-xl font-semibold">Happy Pets</h3>
             <p className="text-gray-300">Nourished with our premium food daily</p>
           </div>
@@ -24,9 +24,9 @@ export default function WhyChooseUsSection() {
             </p>
           </div>
           <div className="space-y-4">
-            <div className="text-4xl font-bold text-primary">25</div>
+            <div className="text-4xl font-bold text-primary">5</div>
             <h3 className="text-xl font-semibold">Years Experience</h3>
-            <p className="text-gray-300">Decades of expertise in pet nutrition</p>
+            <p className="text-gray-300">Years of expertise in pet nutrition</p>
           </div>
         </div>
       </div>

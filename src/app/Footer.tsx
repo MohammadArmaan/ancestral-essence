@@ -84,6 +84,8 @@ export default function Footer() {
                   {" "}
                   About{" "}
                 </Link>
+              </li>
+              <li>
                 <Link
                   href="/blog"
                   title=""

@@ -18,10 +18,13 @@ export default function Home() {
       </div>
 
       {/* Rest of the content with max-width */}
-        <ScrollingRibbon />
+
+      {/* Scrolling Ribbon */}
+      <ScrollingRibbon />
+
       <div className="mx-auto max-w-7xl space-y-16 px-5 py-16">
         {/* Features Section */}
-        <FeaturesSection/>
+        <FeaturesSection />
 
         {/* About Section */}
         <AboutSection />

@@ -34,7 +34,24 @@ export default function Page() {
           </div>
         </div>
 
-        {/* Store Details - Optional */}
+        {/* Brand Story */}
+        <div className="mt-16 rounded-lg bg-gray-100 p-8 text-left shadow-md dark:bg-gray-800">
+          <h2 className="mb-4 text-center text-3xl font-bold text-primary">Our Brand Story</h2>
+          <p className="mb-4 leading-7">
+            Meet <span className="font-semibold">Ancestral Essence</span>, born from our passion to revolutionize pet health. We believe every pet deserves vibrant wellness. Our expertly crafted gourmet dining experience optimizes overall health, addressing common issues like digestive problems and allergies.
+          </p>
+          <p className="mb-4 leading-7">
+            Don’t wait – <span className="font-semibold text-primary">join the pack today</span> and give your pet the gift of thriving health and wellness.
+          </p>
+          <p className="leading-7">
+            At <span className="font-semibold">Ancestral Essence</span>, we believe in nourishing vibrant pet health. Our gourmet meals and functional supplements are crafted with exceptional quality and tailored to your pet’s unique needs. From picky eaters to sensitive tummies, our vet-formulated recipes use high-quality, species-appropriate ingredients for optimal gut health and palatability.
+          </p>
+          <p className="mt-4 leading-7">
+            <span className="italic">Witness the difference:</span> over <span className="font-bold">80% of pets</span> show improved energy, digestion, and coat within a month. Give your pet the best with <span className="font-semibold">Ancestral Essence</span>.
+          </p>
+        </div>
+
+        {/* Store Details */}
         <div className="mt-10">
           <h2 className="text-3xl font-bold">JOIN OUR PACK</h2>
           <p className="mt-2">

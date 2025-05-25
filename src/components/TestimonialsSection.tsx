@@ -2,28 +2,29 @@ import { Star } from "lucide-react";
 
 export default function TestimonialsSection() {
     const testimonials = [
-      {
-        name: "Sarah Johnson",
-        location: "New York, NY",
-        text: "My Golden Retriever Max has never been healthier! His coat is shinier and he has so much more energy since switching to Ancestral Essence.",
-        rating: 5,
-        petName: "Max",
-      },
-      {
-        name: "Mike Chen",
-        location: "Los Angeles, CA",
-        text: "Finally found a food that doesn't upset my cat Luna's sensitive stomach. She actually gets excited at meal time now!",
-        rating: 5,
-        petName: "Luna",
-      },
-      {
-        name: "Emily Rodriguez",
-        location: "Austin, TX",
-        text: "The quality is exceptional and the customer service is amazing. My rescue dog Charlie is thriving on this food!",
-        rating: 5,
-        petName: "Charlie",
-      },
-    ];
+        {
+          name: "Aarav Sharma",
+          location: "Mumbai, Maharashtra",
+          text: "My Labrador Bruno has never been healthier! His coat shines and he’s so much more active ever since we started using Ancestral Essence.",
+          rating: 5,
+          petName: "Bruno",
+        },
+        {
+          name: "Priya Menon",
+          location: "Bengaluru, Karnataka",
+          text: "Finally found food that suits my cat Snowy's sensitive stomach. She purrs the moment I open the packet!",
+          rating: 5,
+          petName: "Snowy",
+        },
+        {
+          name: "Rajiv Patel",
+          location: "Ahmedabad, Gujarat",
+          text: "The quality is top-notch and the customer support is excellent. My indie dog Sheru is loving it and looks healthier than ever!",
+          rating: 5,
+          petName: "Sheru",
+        },
+      ];
+      
   
     return (
       <div>
