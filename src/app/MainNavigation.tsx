@@ -57,13 +57,13 @@ export default function MainNavigation({
             </ul>
           </NavigationMenuContent>
         </NavigationMenuItem>
-        {/* <NavigationMenuItem>
+        <NavigationMenuItem>
         <Link href="/blog" legacyBehavior passHref>
             <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-              Blog
+              Blogs
             </NavigationMenuLink>
           </Link>
-        </NavigationMenuItem> */}
+        </NavigationMenuItem>
       </NavigationMenuList>
     </NavigationMenu>
   );

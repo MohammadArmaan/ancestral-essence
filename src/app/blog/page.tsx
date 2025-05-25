@@ -1,59 +1,65 @@
-// app/blog/page.tsx (or pages/blog.tsx depending on your Next.js setup)
-
 import Link from "next/link";
+import { wixBrowserClient } from "@/lib/wix-client.browser";
+import WixImage from "@/components/WixImage";
+import { formatDate } from "@/lib/utils";
 
-const dummyPosts = [
-  {
-    id: 1,
-    title: "5 Tips to Keep Your Dog Healthy",
-    summary:
-      "Discover easy ways to improve your dog's nutrition, exercise, and overall well-being.",
-    date: "May 15, 2025",
-    slug: "5-tips-to-keep-your-dog-healthy",
-  },
-  {
-    id: 2,
-    title: "Why Grain-Free Diets Matter for Cats",
-    summary:
-      "Learn about the benefits of grain-free meals and how they can improve your cat's digestion.",
-    date: "May 10, 2025",
-    slug: "why-grain-free-diets-matter-for-cats",
-  },
-  {
-    id: 3,
-    title: "Understanding Your Pet’s Allergies",
-    summary:
-      "A guide to identifying common allergens and how to manage your pet’s allergies effectively.",
-    date: "May 5, 2025",
-    slug: "understanding-your-pets-allergies",
-  },
-];
+export const revalidate = 60;
 
-export default function BlogPage() {
+async function getAllBlogPosts(limit = 100) {
+  try {
+    const { items } = await wixBrowserClient.items
+      .query("DogHealthTips")
+      .limit(limit)
+      .find();
+
+    return items;
+  } catch (error) {
+    console.error("Error fetching blog posts:", error);
+    return [];
+  }
+}
+
+export default async function BlogPage() {
+  const blogPosts = await getAllBlogPosts();
+
   return (
-    <main className="max-w-5xl mx-auto px-5 py-10">
-      <h1 className="text-4xl font-bold mb-8 text-center">Blogs</h1>
+    <div className="mx-auto max-w-6xl px-4 py-8">
+      <h1 className="mb-10 text-center text-4xl font-bold text-primary">Blogs</h1>
 
-      <div className="grid gap-8 md:grid-cols-2">
-        {dummyPosts.map((post) => (
-          <article
-            key={post.id}
-            className="rounded-lg border card p-6 hover:shadow-lg transition-shadow"
+      <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-3">
+        {blogPosts.map((post: any) => (
+          <Link
+            key={post._id}
+            href={`/blog/${post.slug}`}
+            className="group block rounded-2xl border border-border bg-card shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg"
           >
-            <h2 className="text-2xl font-semibold mb-2">
-              <Link href={`/blog/${post.slug}`}>
-                <div className="hover:text-primary transition-colors">{post.title}</div>
-              </Link>
-            </h2>
-            <p className="text-gray-700 dark:text-gray-300 mb-4">{post.summary}</p>
-            <time className="text-sm text-muted-foreground">{post.date}</time>
-          </article>
+            {post.coverImage && (
+              <div className="overflow-hidden rounded-t-2xl">
+                <WixImage
+                  mediaIdentifier={post.coverImage}
+                  alt={post.title}
+                  width={600}
+                  height={300}
+                  className="h-48 w-full object-cover transition-transform duration-300 ease-in-out group-hover:scale-105"
+                />
+              </div>
+            )}
+
+            <div className="p-5">
+              <h2 className="mb-2 text-2xl font-semibold text-primary">{post.title}</h2>
+              <p className="mb-1 text-sm text-muted-foreground">
+                {formatDate(post.date)}
+              </p>
+              <p className="mb-4 text-sm text-foreground line-clamp-3">
+                {post.summary}
+              </p>
+              <p className="text-sm font-medium text-muted-foreground">
+                Click to read →
+              </p>
+            </div>
+          </Link>
         ))}
       </div>
-
-      <p className="mt-12 text-center text-gray-500 dark:text-gray-400 italic">
-        More posts coming soon...
-      </p>
-    </main>
+    </div>
   );
 }

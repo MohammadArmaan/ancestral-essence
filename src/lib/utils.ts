@@ -50,3 +50,14 @@ export function checkInStock(
         product.stock?.inventoryStatus ===
           products.InventoryStatus.PARTIALLY_OUT_OF_STOCK;
 }
+
+export function formatDate(dateString: string) {
+  const [day, month, year] = dateString.split("/").map(Number);
+  const dateObj = new Date(year, month - 1, day); // Month is 0-based
+
+  return dateObj.toLocaleDateString("en-US", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  });
+}

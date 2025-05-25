@@ -12,11 +12,13 @@ import { redirects } from "@wix/redirects";
 import { reviews } from "@wix/reviews";
 import { createClient, OAuthStrategy, Tokens } from "@wix/sdk";
 import { collections, products } from "@wix/stores";
+import { items } from "@wix/data";
 
 export function getWixClient(tokens: Tokens | undefined) {
   return createClient({
     modules: {
       products,
+      items,
       collections,
       currentCart,
       checkout,

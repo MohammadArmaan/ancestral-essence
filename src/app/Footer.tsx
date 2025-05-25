@@ -92,7 +92,7 @@ export default function Footer() {
                   className="flex text-base transition-all duration-200 hover:text-primary focus:text-primary"
                 >
                   {" "}
-                  Blog{" "}
+                  Blogs{" "}
                 </Link>
               </li>
             </ul>
