@@ -68,7 +68,7 @@ export default function BlogPostPage({ params }: BlogPostPageProps) {
       <time className="block mb-8 text-muted-foreground">{post.date}</time>
 
       <article
-        className="prose prose-primary max-w-none"
+        className="prose prose-primary max-w-none dark:text-gray-300"
         dangerouslySetInnerHTML={{ __html: post.content }}
       />
     </main>

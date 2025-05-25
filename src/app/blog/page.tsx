@@ -38,20 +38,20 @@ export default function BlogPage() {
         {dummyPosts.map((post) => (
           <article
             key={post.id}
-            className="rounded-lg border border-gray-300 p-6 hover:shadow-lg transition-shadow"
+            className="rounded-lg border card p-6 hover:shadow-lg transition-shadow"
           >
             <h2 className="text-2xl font-semibold mb-2">
               <Link href={`/blog/${post.slug}`}>
                 <div className="hover:text-primary transition-colors">{post.title}</div>
               </Link>
             </h2>
-            <p className="text-gray-700 mb-4">{post.summary}</p>
+            <p className="text-gray-700 dark:text-gray-300 mb-4">{post.summary}</p>
             <time className="text-sm text-muted-foreground">{post.date}</time>
           </article>
         ))}
       </div>
 
-      <p className="mt-12 text-center text-gray-500 italic">
+      <p className="mt-12 text-center text-gray-500 dark:text-gray-400 italic">
         More posts coming soon...
       </p>
     </main>
