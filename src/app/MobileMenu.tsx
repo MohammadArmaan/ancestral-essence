@@ -68,6 +68,11 @@ export default function MobileMenu({
                   Shop
                 </Link>
               </li>
+              <li>
+                <Link href="/blog" className="font-semibold hover:underline">
+                  Blogs
+                </Link>
+              </li>
               {collections.map((collection) => (
                 <li key={collection._id}>
                   <Link
