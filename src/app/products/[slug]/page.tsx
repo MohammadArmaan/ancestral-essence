@@ -13,6 +13,9 @@ import ProductDetails from "./ProductDetails";
 import ProductReviews, {
   ProductReviewsLoadingSkeleton,
 } from "./ProductReviews";
+import FeaturedSectionProduct from "@/components/FeaturedSectionProduct";
+import ProductDescriptionSection from "./ProductDescriptionSection";
+import ProductAdditionalInfoSection from "./ProductAdditionalInfoSection";
 
 interface PageProps {
   params: { slug: string };
@@ -54,6 +57,10 @@ export default async function Page({ params: { slug } }: PageProps) {
     <main className="mx-auto max-w-7xl space-y-10 px-5 py-10">
       <ProductDetails product={product} />
       <hr />
+      <ProductDescriptionSection product={product} />
+      <hr />
+      <ProductAdditionalInfoSection product={product} />
+      <hr />
       <Suspense fallback={<RelatedProductsLoadingSkeleton />}>
         <RelatedProducts productId={product._id} />
       </Suspense>
@@ -85,7 +92,7 @@ async function RelatedProducts({ productId }: RelatedProductsProps) {
       <h2 className="text-2xl font-bold">Related Products</h2>
       <div className="flex grid-cols-2 flex-col gap-5 sm:grid lg:grid-cols-4">
         {relatedProducts.map((product) => (
-          <Product key={product._id} product={product} />
+          <FeaturedSectionProduct key={product._id} product={product} />
         ))}
       </div>
     </div>
