@@ -70,16 +70,6 @@
   }
 }
 
-.swiper-pagination-bullet {
-  background-color: #000; /* example primary blue */
-  opacity: 1;
-}
-
-.swiper-pagination-bullet-active {
-  background-color: #000;
-  opacity: 1;
-}
-
 /* src/styles/animations.css */
 .scroll-animate {
   opacity: 0;
@@ -177,4 +167,22 @@
 
 .flip-card-back {
   transform: rotateY(180deg);
+}
+
+.swiper-pagination-bullet {
+  @apply bg-primary/80 !important;
+  opacity: 1;
+  transition: background-color 0.3s;
+}
+
+.swiper-pagination-bullet-active {
+  @apply bg-primary !important;
+}
+
+.dark .swiper-pagination-bullet {
+  @apply bg-gray-500 !important;
+}
+
+.dark .swiper-pagination-bullet-active {
+  @apply bg-primary !important;
 }

@@ -27,7 +27,7 @@ export default function ProductAdditionalInfoSection({
         <h2 className="text-2xl md:text-3xl font-bold">Additional Information</h2>
       </div>
 
-      <Accordion type="multiple" className="space-y-4">
+      <Accordion type="multiple" defaultValue={additionalSections.slice(0, 2).map((s) => s.title || "")} className="space-y-4">
         {additionalSections.map((section) => (
           <AccordionItem
             key={section.title}

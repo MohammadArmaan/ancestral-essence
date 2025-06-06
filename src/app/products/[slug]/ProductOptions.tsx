@@ -19,7 +19,7 @@ export default function ProductOptions({
         <fieldset key={option.name} className="space-y-1.5">
           <legend>
             <Label asChild>
-              <span>{option.name}</span>
+              <span className="text-[18px] font-medium">{option.name}</span>
             </Label>
           </legend>
           <div className="flex flex-wrap items-center gap-1.5">

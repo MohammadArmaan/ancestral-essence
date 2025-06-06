@@ -16,6 +16,7 @@ import ProductReviews, {
 import FeaturedSectionProduct from "@/components/FeaturedSectionProduct";
 import ProductDescriptionSection from "./ProductDescriptionSection";
 import ProductAdditionalInfoSection from "./ProductAdditionalInfoSection";
+import VetReviewsSlider from "./VetReviewsSlider";
 
 interface PageProps {
   params: { slug: string };
@@ -64,6 +65,8 @@ export default async function Page({ params: { slug } }: PageProps) {
       <Suspense fallback={<RelatedProductsLoadingSkeleton />}>
         <RelatedProducts productId={product._id} />
       </Suspense>
+      <hr />
+      <VetReviewsSlider />
       <hr />
       <div className="space-y-5">
         <h2 className="text-2xl font-bold">Buyer reviews</h2>

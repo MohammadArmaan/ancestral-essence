@@ -89,7 +89,7 @@ export default function FeaturedSectionProduct({ product }: FeaturedSectionProdu
   return (
     <Link
       href={`/products/${product.slug}`}
-      className="group relative block overflow-hidden rounded-2xl border-2 dark:border-2 bg-card dark:bg-black dark:shadow-2xl shadow-md"
+      className="group relative block overflow-hidden rounded-2xl border-2 dark:border-2 bg-card dark:bg-black dark:shadow-2xl shadow-xl"
     >
       {/* Animated border container */}
       <div className="absolute inset-0 z-10 pointer-events-none rounded-2xl">
