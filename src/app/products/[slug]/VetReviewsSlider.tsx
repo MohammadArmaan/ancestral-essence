@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef } from "react";
+import { useRef, useEffect, useState } from "react";
 import { ChevronLeft, ChevronRight, Star } from "lucide-react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination, Navigation, Autoplay } from "swiper/modules";
@@ -57,6 +57,12 @@ const testimonials = [
 export default function VetReviewsSlider() {
   const prevRef = useRef(null);
   const nextRef = useRef(null);
+  const [isSwiperReady, setIsSwiperReady] = useState(false);
+
+  // Make sure Swiper only renders when refs are mounted
+  useEffect(() => {
+    setIsSwiperReady(true);
+  }, []);
 
   return (
     <section className="relative mx-auto max-w-6xl px-4 py-16">
@@ -70,61 +76,55 @@ export default function VetReviewsSlider() {
         </p>
       </div>
 
-      {/* Custom Nav Buttons */}
+      {/* Custom Navigation Arrows */}
       <div className="pointer-events-none absolute inset-y-0 z-10 top-[60%] w-full items-center justify-between">
         <button
           ref={prevRef}
-          className="pointer-events-auto rounded-full absolute left-0 border border-primary bg-background p-2 text-primary shadow hover:bg-primary hover:text-white transition"
+          className="pointer-events-auto absolute left-0 rounded-full border border-primary bg-background p-2 text-primary shadow hover:bg-primary hover:text-white transition"
         >
           <ChevronLeft />
         </button>
         <button
           ref={nextRef}
-          className="pointer-events-auto rounded-full border border-primary absolute right-6 bg-background p-2 text-primary shadow hover:bg-primary hover:text-white transition"
+          className="pointer-events-auto absolute right-6 rounded-full border border-primary bg-background p-2 text-primary shadow hover:bg-primary hover:text-white transition"
         >
           <ChevronRight />
         </button>
       </div>
 
-      {/* Swiper Slider */}
-      <Swiper
-        breakpoints={{
-          320: {
-            slidesPerView: 1,
-            spaceBetween: 10,
-          },
-          640: {
-            slidesPerView: 2,
-            spaceBetween: 20,
-          },
-          1024: {
-            slidesPerView: 3,
-            spaceBetween: 30,
-          },
-        }}
-        pagination={{ clickable: true }}
-        autoplay={{ delay: 5000 }}
-        navigation={{
-          prevEl: prevRef.current,
-          nextEl: nextRef.current,
-        }}
-        onInit={(swiper) => {
-          // @ts-ignore
-          swiper.params.navigation.prevEl = prevRef.current;
-          // @ts-ignore
-          swiper.params.navigation.nextEl = nextRef.current;
-          swiper.navigation.init();
-          swiper.navigation.update();
-        }}
-        modules={[Pagination, Navigation, Autoplay]}
-        className="pb-8"
-      >
-        {testimonials.map((testimonial, index) => (
-          <SwiperSlide key={index}>
-            <ReviewCard testimonial={testimonial} />
-          </SwiperSlide>
-        ))}
-      </Swiper>
+      {/* Swiper Carousel */}
+      {isSwiperReady && (
+        <Swiper
+          loop={true}
+          breakpoints={{
+            320: { slidesPerView: 1, spaceBetween: 10 },
+            640: { slidesPerView: 2, spaceBetween: 20 },
+            1024: { slidesPerView: 3, spaceBetween: 30 },
+          }}
+          pagination={{ clickable: true }}
+          autoplay={{ delay: 5000 }}
+          navigation={{
+            prevEl: prevRef.current,
+            nextEl: nextRef.current,
+          }}
+          onInit={(swiper) => {
+            // @ts-ignore
+            swiper.params.navigation.prevEl = prevRef.current;
+            // @ts-ignore
+            swiper.params.navigation.nextEl = nextRef.current;
+            swiper.navigation.init();
+            swiper.navigation.update();
+          }}
+          modules={[Pagination, Navigation, Autoplay]}
+          className="pb-8"
+        >
+          {testimonials.map((testimonial, index) => (
+            <SwiperSlide key={index}>
+              <ReviewCard testimonial={testimonial} />
+            </SwiperSlide>
+          ))}
+        </Swiper>
+      )}
     </section>
   );
 }
