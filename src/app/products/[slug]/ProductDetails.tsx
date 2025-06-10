@@ -998,7 +998,7 @@ export default function ProductDetails({ product }: ProductDetailsProps) {
                         >
                           -
                         </button>
-                        <span className="px-4 py-2 border-x border-gray-300 min-w-[60px] text-center font-medium">
+                        <span className="px-4 py-2 border-x border-gray-300 dark:border-gray-700 min-w-[60px] text-center font-medium">
                           {quantity}
                         </span>
                         <button 
