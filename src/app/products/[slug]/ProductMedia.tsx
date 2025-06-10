@@ -128,7 +128,7 @@ export default function ProductMedia({ media }: ProductMediaProps) {
       {/* On medium+ screens: side-by-side, on small: stacked */}
       <div className="flex flex-col gap-4 md:flex-row">
         {/* Main image first on all screens */}
-        <div className="order-1 flex-1 md:order-2">
+        <div className="order-1 flex-2 md:order-2">
           <div className="aspect-square overflow-hidden rounded-lg border border-gray-100 dark:border-gray-700 bg-background/30 shadow-sm">
             {selectedImage?.url ? (
               <Zoom key={selectedImage.url}>

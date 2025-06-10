@@ -334,7 +334,7 @@
 //   );
 // }
 
-// Version -3 
+// Version -3
 
 // "use client";
 
@@ -740,7 +740,7 @@
 //                 <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
 //                   Product Details
 //                 </h3>
-//                 <div 
+//                 <div
 //                   className="text-sm text-gray-600 dark:text-gray-400 leading-relaxed"
 //                   dangerouslySetInnerHTML={{ __html: product.description }}
 //                 />
@@ -796,6 +796,268 @@
 // }
 
 // Version - 4
+
+// "use client";
+
+// import AddToCartButton from "@/components/AddToCartButton";
+// import BackInStockNotificationButton from "@/components/BackInStockNotificationButton";
+// import BuyNowButton from "@/components/BuyNowButton";
+// import { Input } from "@/components/ui/input";
+// import { Label } from "@/components/ui/label";
+// import Badge from "@/components/ui/badge";
+// import {
+//   ShieldCheckIcon,
+//   TruckIcon,
+//   RefreshCwIcon,
+//   CheckCircleIcon,
+//   StarIcon,
+// } from "lucide-react";
+// import { checkInStock, findVariant } from "@/lib/utils";
+// import { products } from "@wix/stores";
+// import { useState } from "react";
+// import ProductMedia from "./ProductMedia";
+// import ProductOptions from "./ProductOptions";
+// import ProductPrice from "./ProductPrice";
+// import { Card } from "@/components/ui/card";
+// import Zoom from "react-medium-image-zoom";
+
+// interface ProductDetailsProps {
+//   product: products.Product;
+// }
+
+// export default function ProductDetails({ product }: ProductDetailsProps) {
+//   const [quantity, setQuantity] = useState(1);
+
+//   const [selectedOptions, setSelectedOptions] = useState<
+//     Record<string, string>
+//   >(
+//     product.productOptions
+//       ?.map((option) => ({
+//         [option.name || ""]: option.choices?.[0].description || "",
+//       }))
+//       ?.reduce((acc, curr) => ({ ...acc, ...curr }), {}) || {},
+//   );
+
+//   const selectedVariant = findVariant(product, selectedOptions);
+//   const inStock = checkInStock(product, selectedOptions);
+//   const availableQuantity =
+//     selectedVariant?.stock?.quantity ?? product.stock?.quantity;
+//   const availableQuantityExceeded =
+//     !!availableQuantity && quantity > availableQuantity;
+
+//   const selectedOptionsMedia = product.productOptions?.flatMap((option) => {
+//     const selectedChoice = option.choices?.find(
+//       (choice) => choice.description === selectedOptions[option.name || ""],
+//     );
+//     return selectedChoice?.media?.items ?? [];
+//   });
+
+//   return (
+//     <div className="min-h-screen">
+//       <div className="container mx-auto px-4 py-8 lg:px-8">
+//         {/* Mobile Layout - Stacked vertically */}
+//         <div className="lg:hidden space-y-6">
+//           {/* Mobile Product Media */}
+//           <div className="bg-background rounded-lg p-4">
+//             <ProductMedia
+//               media={
+//                 !!selectedOptionsMedia?.length
+//                   ? selectedOptionsMedia
+//                   : product.media?.items
+//               }
+//             />
+//           </div>
+
+//           {/* Mobile Product Details */}
+//           <div className="bg-background rounded-lg p-2 space-y-6">
+//             {/* Product Header */}
+//             <div className="space-y-3">
+//               <h1 className="text-3xl font-bold text-foreground leading-tight">
+//                 {product.name}
+//               </h1>
+//               <div className="flex items-center gap-2">
+//                 <ProductPrice
+//                   product={product}
+//                   selectedVariant={selectedVariant}
+//                 />
+//                 {product.ribbon && (
+//                   <Badge className="bg-yellow-400 text-black text-xs px-2 py-1">
+//                     {product.ribbon}
+//                   </Badge>
+//                 )}
+//               </div>
+//             </div>
+
+//             {/* Product Options */}
+//             <div className="space-y-4">
+//               <ProductOptions
+//                 product={product}
+//                 selectedOptions={selectedOptions}
+//                 setSelectedOptions={setSelectedOptions}
+//               />
+//             </div>
+
+//             {/* Quantity and Actions */}
+//             <div className="space-y-4">
+//               <div className="flex items-center gap-4">
+//                 <Label className="text-sm font-medium text-foreground">QTY</Label>
+//                 <div className="flex items-center border border-gray-300 dark:border-gray-700 rounded-md">
+//                   <button
+//                     onClick={() => setQuantity(Math.max(1, quantity - 1))}
+//                     className="px-3 py-2 text-foreground hover:bg-gray-50 dark:hover:bg-gray-900"
+//                   >
+//                     -
+//                   </button>
+//                   <span className="px-4 py-2 border-x border-gray-300 dark:border-gray-700 min-w-[60px] text-center font-medium">
+//                     {quantity}
+//                   </span>
+//                   <button
+//                     onClick={() => setQuantity(quantity + 1)}
+//                     className="px-3 py-2 text-foreground dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-900"
+//                   >
+//                     +
+//                   </button>
+//                 </div>
+//               </div>
+
+//               {inStock ? (
+//                 <AddToCartButton
+//                   product={product}
+//                   selectedOptions={selectedOptions}
+//                   quantity={quantity}
+//                   disabled={availableQuantityExceeded || quantity < 1}
+//                   className="w-full h-12 bg-primary text-white font-semibold rounded-md hover:bg-primary/90"
+//                 />
+//               ) : (
+//                 <BackInStockNotificationButton
+//                   product={product}
+//                   selectedOptions={selectedOptions}
+//                   className="h-12 w-full bg-primary text-white"
+//                 />
+//               )}
+//             </div>
+//           </div>
+//         </div>
+
+//         {/* Desktop Layout - Side by side like the design */}
+//         <div className="hidden lg:block">
+//           <div className="bg-background rounded-lg overflow-hidden">
+//             <div className="grid grid-cols-2 gap-0">
+//               {/* LEFT SIDE - Media */}
+//               <div className="p-8 bg-background">
+//                 <ProductMedia
+//                   media={
+//                     !!selectedOptionsMedia?.length
+//                       ? selectedOptionsMedia
+//                       : product.media?.items
+//                   }
+//                 />
+//               </div>
+
+//               {/* RIGHT SIDE - Product Details */}
+//               <div className="p-8 space-y-6">
+//                 {/* Product Header */}
+//                 <div className="space-y-4">
+//                   <h1 className="text-6xl font-extrabold text-foreground leading-tight">
+//                     {product.name}
+//                   </h1>
+
+//                   <div className="flex items-center gap-2">
+//                 <ProductPrice
+//                   product={product}
+//                   selectedVariant={selectedVariant}
+//                 />
+//                 {product.ribbon && (
+//                   <Badge className="bg-yellow-400 text-black text-xs px-2 py-1">
+//                     {product.ribbon}
+//                   </Badge>
+//                 )}
+//               </div>
+
+//                 {/* About Product section */}
+//                 </div>
+
+//                 {/* Product Options */}
+//                 <div className="space-y-4">
+//                   <ProductOptions
+//                     product={product}
+//                     selectedOptions={selectedOptions}
+//                     setSelectedOptions={setSelectedOptions}
+//                   />
+//                 </div>
+
+//                 {/* Quantity Selection and Price */}
+//                 <div className="space-y-4">
+//                   <div className="flex items-center justify-between">
+//                     <div className="flex items-center gap-4">
+//                       <Label className="text-sm font-medium text-foreground">QTY</Label>
+//                       <div className="flex items-center border border-gray-300 dark:border-gray-700 rounded-md bg-background">
+//                         <button
+//                           onClick={() => setQuantity(Math.max(1, quantity - 1))}
+//                           className="px-3 py-2 text-foreground hover:bg-gray-50 dark:hover:bg-gray-900 font-medium"
+//                         >
+//                           -
+//                         </button>
+//                         <span className="px-4 py-2 border-x border-gray-300 dark:border-gray-700 min-w-[60px] text-center font-medium">
+//                           {quantity}
+//                         </span>
+//                         <button
+//                           onClick={() => setQuantity(quantity + 1)}
+//                           className="px-3 py-2 text-foreground hover:bg-gray-50 dark:hover:bg-gray-900 font-medium"
+//                         >
+//                           +
+//                         </button>
+//                       </div>
+//                     </div>
+
+//                     {/* Price display like in design */}
+//                   </div>
+
+//                   {/* Stock info */}
+//                   {!!availableQuantity &&
+//                     (availableQuantityExceeded || availableQuantity < 10) && (
+//                       <span className="text-sm font-medium text-red-600">
+//                         Only {availableQuantity} left in stock
+//                       </span>
+//                     )}
+//                 </div>
+
+//                 {/* Action Button */}
+//                 <div className="pt-4">
+//                   {inStock ? (
+//                     <AddToCartButton
+//                       product={product}
+//                       selectedOptions={selectedOptions}
+//                       quantity={quantity}
+//                       disabled={availableQuantityExceeded || quantity < 1}
+//                       className="w-full h-12 bg-primary text-white font-semibold rounded-md hover:bg-primary/90 text-base"
+//                     />
+//                   ) : (
+//                     <BackInStockNotificationButton
+//                       product={product}
+//                       selectedOptions={selectedOptions}
+//                       className="h-12 w-full bg-primary text-white font-semibold rounded-md"
+//                     />
+//                   )}
+//                 </div>
+
+//                 {/* Product Description */}
+//                 {product.description && (
+//                   <div className="pt-6 border-t border-gray-200 dark:border-gray-700">
+//                     <div
+//                       className="text-sm text-foreground leading-relaxed prose dark:prose-invert prose-sm max-w-none"
+//                       dangerouslySetInnerHTML={{ __html: product.description }}
+//                     />
+//                   </div>
+//                 )}
+//               </div>
+//             </div>
+//           </div>
+//         </div>
+//       </div>
+//     </div>
+//   );
+// }
 
 "use client";
 
@@ -856,9 +1118,9 @@ export default function ProductDetails({ product }: ProductDetailsProps) {
     <div className="min-h-screen">
       <div className="container mx-auto px-4 py-8 lg:px-8">
         {/* Mobile Layout - Stacked vertically */}
-        <div className="lg:hidden space-y-6">
+        <div className="space-y-6 lg:hidden">
           {/* Mobile Product Media */}
-          <div className="bg-background rounded-lg p-4">
+          <div className="rounded-lg bg-background p-4">
             <ProductMedia
               media={
                 !!selectedOptionsMedia?.length
@@ -869,19 +1131,19 @@ export default function ProductDetails({ product }: ProductDetailsProps) {
           </div>
 
           {/* Mobile Product Details */}
-          <div className="bg-background rounded-lg p-2 space-y-6">
+          <div className="space-y-6 rounded-lg bg-background p-2">
             {/* Product Header */}
             <div className="space-y-3">
-              <h1 className="text-3xl font-bold text-foreground leading-tight">
+              <h1 className="text-3xl font-bold leading-tight text-foreground">
                 {product.name}
               </h1>
-              <div className="flex items-center gap-2">
+              <div className="flex flex-col items-start gap-2">
                 <ProductPrice
                   product={product}
                   selectedVariant={selectedVariant}
                 />
                 {product.ribbon && (
-                  <Badge className="bg-yellow-400 text-black text-xs px-2 py-1">
+                  <Badge className="inline-flex rounded-full bg-gradient-to-r from-purple-600 to-pink-600 px-3 py-1 text-sm font-medium text-white">
                     {product.ribbon}
                   </Badge>
                 )}
@@ -900,20 +1162,22 @@ export default function ProductDetails({ product }: ProductDetailsProps) {
             {/* Quantity and Actions */}
             <div className="space-y-4">
               <div className="flex items-center gap-4">
-                <Label className="text-sm font-medium text-foreground">QTY</Label>
-                <div className="flex items-center border border-gray-300 dark:border-gray-700 rounded-md">
-                  <button 
+                <Label className="text-sm font-medium text-foreground">
+                  QTY
+                </Label>
+                <div className="flex items-center rounded-md border border-gray-300 dark:border-gray-700">
+                  <button
                     onClick={() => setQuantity(Math.max(1, quantity - 1))}
                     className="px-3 py-2 text-foreground hover:bg-gray-50 dark:hover:bg-gray-900"
                   >
                     -
                   </button>
-                  <span className="px-4 py-2 border-x border-gray-300 dark:border-gray-700 min-w-[60px] text-center font-medium">
+                  <span className="min-w-[60px] border-x border-gray-300 px-4 py-2 text-center font-medium dark:border-gray-700">
                     {quantity}
                   </span>
-                  <button 
+                  <button
                     onClick={() => setQuantity(quantity + 1)}
-                    className="px-3 py-2 text-foreground dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-900"
+                    className="px-3 py-2 text-foreground hover:bg-gray-50 dark:border-gray-700 dark:hover:bg-gray-900"
                   >
                     +
                   </button>
@@ -921,13 +1185,22 @@ export default function ProductDetails({ product }: ProductDetailsProps) {
               </div>
 
               {inStock ? (
-                <AddToCartButton
-                  product={product}
-                  selectedOptions={selectedOptions}
-                  quantity={quantity}
-                  disabled={availableQuantityExceeded || quantity < 1}
-                  className="w-full h-12 bg-primary text-white font-semibold rounded-md hover:bg-primary/90"
-                />
+                <>
+                  <AddToCartButton
+                    product={product}
+                    selectedOptions={selectedOptions}
+                    quantity={quantity}
+                    disabled={availableQuantityExceeded || quantity < 1}
+                    className="h-12 w-full rounded-md bg-primary font-semibold text-white hover:bg-primary/90"
+                  />
+                  <BuyNowButton
+                    product={product}
+                    selectedOptions={selectedOptions}
+                    quantity={quantity}
+                    disabled={availableQuantityExceeded || quantity < 1}
+                    className="h-12 w-full text-base font-semibold"
+                  />
+                </>
               ) : (
                 <BackInStockNotificationButton
                   product={product}
@@ -941,10 +1214,10 @@ export default function ProductDetails({ product }: ProductDetailsProps) {
 
         {/* Desktop Layout - Side by side like the design */}
         <div className="hidden lg:block">
-          <div className="bg-background rounded-lg overflow-hidden">
+          <div className="overflow-hidden rounded-lg bg-background">
             <div className="grid grid-cols-2 gap-0">
-              {/* LEFT SIDE - Media */}
-              <div className="p-8 bg-background">
+              {/* LEFT SIDE - Media + Trust Signals */}
+              <div className="flex flex-col gap-10 bg-background p-8">
                 <ProductMedia
                   media={
                     !!selectedOptionsMedia?.length
@@ -952,29 +1225,67 @@ export default function ProductDetails({ product }: ProductDetailsProps) {
                       : product.media?.items
                   }
                 />
+
+                {/* Trust Signals - only visible on desktop */}
+                <div className="hidden border-t border-gray-200 pt-6 dark:border-gray-700 lg:block">
+                  <h3 className="mb-4 text-lg font-semibold text-gray-900 dark:text-white">
+                    Why Shop With Us
+                  </h3>
+                  <div className="grid gap-4 sm:grid-cols-3">
+                    <div className="flex flex-col items-center rounded-lg bg-gray-50 p-4 text-center transition-all hover:scale-105 dark:bg-gray-800">
+                      <div className="mb-3 flex h-10 w-10 items-center justify-center rounded-full bg-green-100 dark:bg-green-900/30">
+                        <ShieldCheckIcon className="h-5 w-5 text-green-600 dark:text-green-400" />
+                      </div>
+                      <h4 className="mb-1 text-sm font-semibold text-gray-900 dark:text-white">
+                        Secure Payment
+                      </h4>
+                      <p className="text-xs text-gray-600 dark:text-gray-400">
+                        SSL Encrypted Checkout
+                      </p>
+                    </div>
+                    <div className="flex flex-col items-center rounded-lg bg-gray-50 p-4 text-center transition-all hover:scale-105 dark:bg-gray-800">
+                      <div className="mb-3 flex h-10 w-10 items-center justify-center rounded-full bg-blue-100 dark:bg-blue-900/30">
+                        <TruckIcon className="h-5 w-5 text-blue-600 dark:text-blue-400" />
+                      </div>
+                      <h4 className="mb-1 text-sm font-semibold text-gray-900 dark:text-white">
+                        Free Shipping
+                      </h4>
+                      <p className="text-xs text-gray-600 dark:text-gray-400">
+                        On orders above ₹1000
+                      </p>
+                    </div>
+                    <div className="flex flex-col items-center rounded-lg bg-gray-50 p-4 text-center transition-all hover:scale-105 dark:bg-gray-800">
+                      <div className="mb-3 flex h-10 w-10 items-center justify-center rounded-full bg-purple-100 dark:bg-purple-900/30">
+                        <RefreshCwIcon className="h-5 w-5 text-purple-600 dark:text-purple-400" />
+                      </div>
+                      <h4 className="mb-1 text-sm font-semibold text-gray-900 dark:text-white">
+                        Easy Returns
+                      </h4>
+                      <p className="text-xs text-gray-600 dark:text-gray-400">
+                        30 day return policy
+                      </p>
+                    </div>
+                  </div>
+                </div>
               </div>
 
               {/* RIGHT SIDE - Product Details */}
-              <div className="p-8 space-y-6">
-                {/* Product Header */}
+              <div className="space-y-6 p-8">
                 <div className="space-y-4">
-                  <h1 className="text-6xl font-extrabold text-foreground leading-tight">
+                  <h1 className="text-6xl font-extrabold leading-tight text-foreground">
                     {product.name}
                   </h1>
-                  
                   <div className="flex items-center gap-2">
-                <ProductPrice
-                  product={product}
-                  selectedVariant={selectedVariant}
-                />
-                {product.ribbon && (
-                  <Badge className="bg-yellow-400 text-black text-xs px-2 py-1">
-                    {product.ribbon}
-                  </Badge>
-                )}
-              </div>
-
-                {/* About Product section */}
+                    <ProductPrice
+                      product={product}
+                      selectedVariant={selectedVariant}
+                    />
+                    {product.ribbon && (
+                      <Badge className="inline-flex rounded-full bg-gradient-to-r from-purple-600 to-pink-600 px-3 py-1 text-sm font-medium text-white">
+                        {product.ribbon}
+                      </Badge>
+                    )}
+                  </div>
                 </div>
 
                 {/* Product Options */}
@@ -986,34 +1297,31 @@ export default function ProductDetails({ product }: ProductDetailsProps) {
                   />
                 </div>
 
-                {/* Quantity Selection and Price */}
+                {/* Quantity Selection */}
                 <div className="space-y-4">
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-4">
-                      <Label className="text-sm font-medium text-foreground">QTY</Label>
-                      <div className="flex items-center border border-gray-300 dark:border-gray-700 rounded-md bg-background">
-                        <button 
-                          onClick={() => setQuantity(Math.max(1, quantity - 1))}
-                          className="px-3 py-2 text-foreground hover:bg-gray-50 dark:hover:bg-gray-900 font-medium"
-                        >
-                          -
-                        </button>
-                        <span className="px-4 py-2 border-x border-gray-300 dark:border-gray-700 min-w-[60px] text-center font-medium">
-                          {quantity}
-                        </span>
-                        <button 
-                          onClick={() => setQuantity(quantity + 1)}
-                          className="px-3 py-2 text-foreground hover:bg-gray-50 dark:hover:bg-gray-900 font-medium"
-                        >
-                          +
-                        </button>
-                      </div>
+                  <div className="flex items-center gap-4">
+                    <Label className="text-sm font-medium text-foreground">
+                      QTY
+                    </Label>
+                    <div className="flex items-center rounded-md border border-gray-300 bg-background dark:border-gray-700">
+                      <button
+                        onClick={() => setQuantity(Math.max(1, quantity - 1))}
+                        className="px-3 py-2 font-medium text-foreground hover:bg-gray-50 dark:hover:bg-gray-900"
+                      >
+                        -
+                      </button>
+                      <span className="min-w-[60px] border-x border-gray-300 px-4 py-2 text-center font-medium dark:border-gray-700">
+                        {quantity}
+                      </span>
+                      <button
+                        onClick={() => setQuantity(quantity + 1)}
+                        className="px-3 py-2 font-medium text-foreground hover:bg-gray-50 dark:hover:bg-gray-900"
+                      >
+                        +
+                      </button>
                     </div>
-                    
-                    {/* Price display like in design */}
                   </div>
 
-                  {/* Stock info */}
                   {!!availableQuantity &&
                     (availableQuantityExceeded || availableQuantity < 10) && (
                       <span className="text-sm font-medium text-red-600">
@@ -1023,29 +1331,37 @@ export default function ProductDetails({ product }: ProductDetailsProps) {
                 </div>
 
                 {/* Action Button */}
-                <div className="pt-4">
+                <div className="flex flex-col gap-y-5 pt-4">
                   {inStock ? (
-                    <AddToCartButton
-                      product={product}
-                      selectedOptions={selectedOptions}
-                      quantity={quantity}
-                      disabled={availableQuantityExceeded || quantity < 1}
-                      className="w-full h-12 bg-primary text-white font-semibold rounded-md hover:bg-primary/90 text-base"
-                    />
+                    <>
+                      <AddToCartButton
+                        product={product}
+                        selectedOptions={selectedOptions}
+                        quantity={quantity}
+                        disabled={availableQuantityExceeded || quantity < 1}
+                        className="h-16 w-full rounded-md bg-primary text-base font-semibold text-white hover:bg-primary/90"
+                      />
+                      <BuyNowButton
+                        product={product}
+                        selectedOptions={selectedOptions}
+                        quantity={quantity}
+                        disabled={availableQuantityExceeded || quantity < 1}
+                        className="h-16 w-full text-base font-semibold"
+                      />
+                    </>
                   ) : (
                     <BackInStockNotificationButton
                       product={product}
                       selectedOptions={selectedOptions}
-                      className="h-12 w-full bg-primary text-white font-semibold rounded-md"
+                      className="h-12 w-full rounded-md bg-primary font-semibold text-white"
                     />
                   )}
                 </div>
 
-                {/* Product Description */}
                 {product.description && (
-                  <div className="pt-6 border-t border-gray-200 dark:border-gray-700">
-                    <div 
-                      className="text-sm text-foreground leading-relaxed prose dark:prose-invert prose-sm max-w-none"
+                  <div className="border-t border-gray-200 pt-6 dark:border-gray-700">
+                    <div
+                      className="prose prose-sm max-w-none text-sm leading-relaxed text-foreground dark:prose-invert"
                       dangerouslySetInnerHTML={{ __html: product.description }}
                     />
                   </div>
