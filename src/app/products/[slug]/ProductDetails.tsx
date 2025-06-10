@@ -1045,7 +1045,7 @@ export default function ProductDetails({ product }: ProductDetailsProps) {
                 {product.description && (
                   <div className="pt-6 border-t border-gray-200 dark:border-gray-700">
                     <div 
-                      className="text-sm text-foreground leading-relaxed prose prose-sm max-w-none"
+                      className="text-sm text-foreground leading-relaxed prose dark:prose-invert prose-sm max-w-none"
                       dangerouslySetInnerHTML={{ __html: product.description }}
                     />
                   </div>
