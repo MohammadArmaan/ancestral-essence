@@ -858,7 +858,7 @@ export default function ProductDetails({ product }: ProductDetailsProps) {
         {/* Mobile Layout - Stacked vertically */}
         <div className="lg:hidden space-y-6">
           {/* Mobile Product Media */}
-          <div className="bg-white rounded-lg p-4">
+          <div className="bg-background rounded-lg p-4">
             <ProductMedia
               media={
                 !!selectedOptionsMedia?.length
@@ -869,10 +869,10 @@ export default function ProductDetails({ product }: ProductDetailsProps) {
           </div>
 
           {/* Mobile Product Details */}
-          <div className="bg-white rounded-lg p-5 space-y-6">
+          <div className="bg-background rounded-lg p-2 space-y-6">
             {/* Product Header */}
             <div className="space-y-3">
-              <h1 className="text-2xl font-bold text-gray-900 leading-tight">
+              <h1 className="text-3xl font-bold text-foreground leading-tight">
                 {product.name}
               </h1>
               <div className="flex items-center gap-2">
@@ -900,20 +900,20 @@ export default function ProductDetails({ product }: ProductDetailsProps) {
             {/* Quantity and Actions */}
             <div className="space-y-4">
               <div className="flex items-center gap-4">
-                <Label className="text-sm font-medium text-gray-700">QTY</Label>
-                <div className="flex items-center border border-gray-300 rounded-md">
+                <Label className="text-sm font-medium text-foreground">QTY</Label>
+                <div className="flex items-center border border-gray-300 dark:border-gray-700 rounded-md">
                   <button 
                     onClick={() => setQuantity(Math.max(1, quantity - 1))}
-                    className="px-3 py-2 text-gray-600 hover:bg-gray-50"
+                    className="px-3 py-2 text-foreground hover:bg-gray-50 dark:hover:bg-gray-900"
                   >
                     -
                   </button>
-                  <span className="px-4 py-2 border-x border-gray-300 min-w-[60px] text-center font-medium">
+                  <span className="px-4 py-2 border-x border-gray-300 dark:border-gray-700 min-w-[60px] text-center font-medium">
                     {quantity}
                   </span>
                   <button 
                     onClick={() => setQuantity(quantity + 1)}
-                    className="px-3 py-2 text-gray-600 hover:bg-gray-50"
+                    className="px-3 py-2 text-foreground dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-900"
                   >
                     +
                   </button>
@@ -932,7 +932,7 @@ export default function ProductDetails({ product }: ProductDetailsProps) {
                 <BackInStockNotificationButton
                   product={product}
                   selectedOptions={selectedOptions}
-                  className="h-12 w-full"
+                  className="h-12 w-full bg-primary text-white"
                 />
               )}
             </div>
@@ -941,10 +941,10 @@ export default function ProductDetails({ product }: ProductDetailsProps) {
 
         {/* Desktop Layout - Side by side like the design */}
         <div className="hidden lg:block">
-          <div className="bg-white rounded-lg overflow-hidden">
+          <div className="bg-background rounded-lg overflow-hidden">
             <div className="grid grid-cols-2 gap-0">
               {/* LEFT SIDE - Media */}
-              <div className="p-8 bg-white">
+              <div className="p-8 bg-background">
                 <ProductMedia
                   media={
                     !!selectedOptionsMedia?.length
@@ -958,7 +958,7 @@ export default function ProductDetails({ product }: ProductDetailsProps) {
               <div className="p-8 space-y-6">
                 {/* Product Header */}
                 <div className="space-y-4">
-                  <h1 className="text-3xl font-bold text-gray-900 leading-tight">
+                  <h1 className="text-6xl font-extrabold text-foreground leading-tight">
                     {product.name}
                   </h1>
                   
@@ -990,11 +990,11 @@ export default function ProductDetails({ product }: ProductDetailsProps) {
                 <div className="space-y-4">
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-4">
-                      <Label className="text-sm font-medium text-gray-700">QTY</Label>
-                      <div className="flex items-center border border-gray-300 rounded-md bg-white">
+                      <Label className="text-sm font-medium text-foreground">QTY</Label>
+                      <div className="flex items-center border border-gray-300 dark:border-gray-700 rounded-md bg-background">
                         <button 
                           onClick={() => setQuantity(Math.max(1, quantity - 1))}
-                          className="px-3 py-2 text-gray-600 hover:bg-gray-50 font-medium"
+                          className="px-3 py-2 text-foreground hover:bg-gray-50 dark:hover:bg-gray-900 font-medium"
                         >
                           -
                         </button>
@@ -1003,7 +1003,7 @@ export default function ProductDetails({ product }: ProductDetailsProps) {
                         </span>
                         <button 
                           onClick={() => setQuantity(quantity + 1)}
-                          className="px-3 py-2 text-gray-600 hover:bg-gray-50 font-medium"
+                          className="px-3 py-2 text-foreground hover:bg-gray-50 dark:hover:bg-gray-900 font-medium"
                         >
                           +
                         </button>
@@ -1036,16 +1036,16 @@ export default function ProductDetails({ product }: ProductDetailsProps) {
                     <BackInStockNotificationButton
                       product={product}
                       selectedOptions={selectedOptions}
-                      className="h-12 w-full bg-black text-white font-semibold rounded-md"
+                      className="h-12 w-full bg-primary text-white font-semibold rounded-md"
                     />
                   )}
                 </div>
 
                 {/* Product Description */}
                 {product.description && (
-                  <div className="pt-6 border-t border-gray-200">
+                  <div className="pt-6 border-t border-gray-200 dark:border-gray-700">
                     <div 
-                      className="text-sm text-gray-600 leading-relaxed prose prose-sm max-w-none"
+                      className="text-sm text-foreground leading-relaxed prose prose-sm max-w-none"
                       dangerouslySetInnerHTML={{ __html: product.description }}
                     />
                   </div>

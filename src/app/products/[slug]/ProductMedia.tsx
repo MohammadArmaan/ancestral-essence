@@ -129,7 +129,7 @@ export default function ProductMedia({ media }: ProductMediaProps) {
       <div className="flex flex-col gap-4 md:flex-row">
         {/* Main image first on all screens */}
         <div className="order-1 flex-1 md:order-2">
-          <div className="aspect-square overflow-hidden rounded-lg border border-gray-100 bg-white shadow-sm">
+          <div className="aspect-square overflow-hidden rounded-lg border border-gray-100 dark:border-gray-700 bg-background/30 shadow-sm">
             {selectedImage?.url ? (
               <Zoom key={selectedImage.url}>
                 <WixImage
@@ -174,7 +174,7 @@ export default function ProductMedia({ media }: ProductMediaProps) {
           <div className="grid grid-cols-2 gap-4">
             {media.slice(0, 3).map((mediaItem, index) => (
               <div key={mediaItem._id} className="relative">
-                <div className="aspect-square cursor-pointer overflow-hidden rounded-lg border border-gray-100 bg-white shadow-sm transition-shadow hover:shadow-md">
+                <div className="aspect-square cursor-pointer overflow-hidden rounded-lg border border-gray-100 dark:border-gray-700 bg-background/30 shadow-sm transition-shadow hover:shadow-md">
                   <Zoom key={mediaItem?.image?.url}>
                     <WixImage
                       mediaIdentifier={
@@ -218,10 +218,10 @@ function MediaPreview({ mediaItem, isSelected, onSelect }: MediaPreviewProps) {
   return (
     <div
       className={cn(
-        "relative cursor-pointer overflow-hidden rounded-lg border bg-white transition-all duration-200 hover:shadow-md",
+        "relative cursor-pointer overflow-hidden rounded-lg border bg-background/30 transition-all duration-200 hover:shadow-md",
         isSelected
           ? "border-2 border-primary shadow-md"
-          : "border-gray-200 hover:border-gray-300",
+          : "border-gray-200 dark:border-gray-700 hover:border-gray-300",
       )}
       style={{ width: "64px", height: "64px" }} // smaller thumbs on all screens
     >
