@@ -1,4 +1,6 @@
 import type { Config } from "tailwindcss";
+import type { PluginAPI } from 'tailwindcss/types/config';
+
 
 const config: Config = {
   darkMode: ["class"],
@@ -84,6 +86,12 @@ const config: Config = {
       },
     },
   },
-  plugins: [require("tailwindcss-animate"), require("@tailwindcss/typography")],
+  plugins: [
+    require("tailwindcss-animate"),
+    require("@tailwindcss/typography"),
+    function ({ addVariant }: PluginAPI) {
+      addVariant('product-hover', '&:hover .product-hover');
+    }
+  ],
 };
 export default config;

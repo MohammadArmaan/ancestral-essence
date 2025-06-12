@@ -10,10 +10,19 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import {
+  Sheet,
+  SheetContent,
+  SheetDescription,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from "@/components/ui/sheet";
 import { ProductsSort } from "@/wix-api/products";
 import { collections } from "@wix/stores";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useOptimistic, useState, useTransition } from "react";
+import { Menu, Filter, X } from "lucide-react";
 
 interface SearchFilterLayoutProps {
   collections: collections.Collection[];
@@ -26,6 +35,7 @@ export default function SearchFilterLayout({
 }: SearchFilterLayoutProps) {
   const router = useRouter();
   const searchParams = useSearchParams();
+  const [isOpen, setIsOpen] = useState(false);
 
   const [optimisticFilters, setOptimisticFilters] = useOptimistic({
     collection: searchParams.getAll("collection"),
@@ -58,37 +68,128 @@ export default function SearchFilterLayout({
     });
   }
 
+  // Count active filters
+  const activeFiltersCount = 
+    optimisticFilters.collection.length + 
+    (optimisticFilters.price_min ? 1 : 0) + 
+    (optimisticFilters.price_max ? 1 : 0);
+
   return (
-    <main className="group flex flex-col items-center justify-center gap-10 px-5 py-10 lg:flex-row lg:items-start">
-      <aside
-        className="h-fit space-y-5 lg:sticky lg:top-10 lg:w-64"
-        data-pending={isPending ? "" : undefined}
-      >
-        <CollectionsFilter
-          collections={collections}
-          selectedCollectionIds={optimisticFilters.collection}
-          updateCollectionIds={(collectionIds) =>
-            updateFilters({ collection: collectionIds })
-          }
+    <main className="flex flex-col items-center justify-center gap-6 px-5 py-10">
+      {/* Header with Hamburger and Sort */}
+      <div className="w-full max-w-7xl flex items-center justify-between">
+        {/* Hamburger Filter Button */}
+        <Sheet open={isOpen} onOpenChange={setIsOpen}>
+          <SheetTrigger asChild>
+            <Button variant="outline" size="sm" className="flex items-center gap-2">
+              <Filter className="h-4 w-4" />
+              <span>Filters</span>
+              {activeFiltersCount > 0 && (
+                <span className="bg-primary text-primary-foreground text-xs rounded-full h-5 w-5 flex items-center justify-center">
+                  {activeFiltersCount}
+                </span>
+              )}
+            </Button>
+          </SheetTrigger>
+          <SheetContent side="left" className="w-80 sm:w-96">
+            <SheetHeader>
+              <SheetTitle className="flex items-center gap-2">
+                <Filter className="h-5 w-5" />
+                Filters
+              </SheetTitle>
+              <SheetDescription>
+                Filter products by collection and price range
+              </SheetDescription>
+            </SheetHeader>
+            
+            <div className="mt-6 space-y-6" data-pending={isPending ? "" : undefined}>
+              <CollectionsFilter
+                collections={collections}
+                selectedCollectionIds={optimisticFilters.collection}
+                updateCollectionIds={(collectionIds) =>
+                  updateFilters({ collection: collectionIds })
+                }
+              />
+              <PriceFilter
+                minDefaultInput={optimisticFilters.price_min}
+                maxDefaultInput={optimisticFilters.price_max}
+                updatePriceRange={(priceMin, priceMax) =>
+                  updateFilters({
+                    price_min: priceMin,
+                    price_max: priceMax,
+                  })
+                }
+              />
+              
+              {/* Clear All Filters */}
+              {activeFiltersCount > 0 && (
+                <div className="pt-4 border-t">
+                  <Button 
+                    variant="outline" 
+                    onClick={() => {
+                      updateFilters({ 
+                        collection: [], 
+                        price_min: undefined, 
+                        price_max: undefined 
+                      });
+                      setIsOpen(false);
+                    }}
+                    className="w-full"
+                  >
+                    Clear All Filters
+                  </Button>
+                </div>
+              )}
+            </div>
+          </SheetContent>
+        </Sheet>
+
+        {/* Sort Filter */}
+        <SortFilter
+          sort={optimisticFilters.sort}
+          updateSort={(sort) => updateFilters({ sort })}
         />
-        <PriceFilter
-          minDefaultInput={optimisticFilters.price_min}
-          maxDefaultInput={optimisticFilters.price_max}
-          updatePriceRange={(priceMin, priceMax) =>
-            updateFilters({
-              price_min: priceMin,
-              price_max: priceMax,
-            })
-          }
-        />
-      </aside>
-      <div className="w-full max-w-7xl space-y-5">
-        <div className="flex justify-center lg:justify-end">
-          <SortFilter
-            sort={optimisticFilters.sort}
-            updateSort={(sort) => updateFilters({ sort })}
-          />
+      </div>
+
+      {/* Active Filters Display */}
+      {activeFiltersCount > 0 && (
+        <div className="w-full max-w-7xl">
+          <div className="flex flex-wrap items-center gap-2">
+            <span className="text-sm text-muted-foreground">Active filters:</span>
+            {optimisticFilters.collection.map((collectionId) => {
+              const collection = collections.find(c => c._id === collectionId);
+              return (
+                <Button
+                  key={collectionId}
+                  variant="secondary"
+                  size="sm"
+                  onClick={() => updateFilters({ 
+                    collection: optimisticFilters.collection.filter(id => id !== collectionId) 
+                  })}
+                  className="h-7 text-xs"
+                >
+                  {collection?.name}
+                  <X className="h-3 w-3 ml-1" />
+                </Button>
+              );
+            })}
+            {(optimisticFilters.price_min || optimisticFilters.price_max) && (
+              <Button
+                variant="secondary"
+                size="sm"
+                onClick={() => updateFilters({ price_min: undefined, price_max: undefined })}
+                className="h-7 text-xs"
+              >
+                Price: {optimisticFilters.price_min || '0'} - {optimisticFilters.price_max || '∞'}
+                <X className="h-3 w-3 ml-1" />
+              </Button>
+            )}
+          </div>
         </div>
+      )}
+
+      {/* Products Content */}
+      <div className="w-full max-w-7xl">
         {children}
       </div>
     </main>
@@ -109,7 +210,7 @@ function CollectionsFilter({
   return (
     <div className="space-y-3">
       <div className="font-bold">Collections</div>
-      <ul className="space-y-1.5">
+      <ul className="space-y-1.5 max-h-64 overflow-y-auto">
         {collections.map((collection) => {
           const collectionId = collection._id;
           if (!collectionId) return null;
@@ -129,7 +230,7 @@ function CollectionsFilter({
                     );
                   }}
                 />
-                <span className="line-clamp-1 break-all">
+                <span className="line-clamp-1 break-all text-sm">
                   {collection.name}
                 </span>
               </label>
@@ -142,7 +243,7 @@ function CollectionsFilter({
           onClick={() => updateCollectionIds([])}
           className="text-sm text-primary hover:underline"
         >
-          Clear
+          Clear Collections
         </button>
       )}
     </div>
@@ -170,12 +271,12 @@ function PriceFilter({
 
   function onSubmit(e: React.FormEvent) {
     e.preventDefault();
-    updatePriceRange(minInput, maxInput);
+    updatePriceRange(minInput || undefined, maxInput || undefined);
   }
 
   return (
     <div className="space-y-3">
-      <div className="font-bold">Price range</div>
+      <div className="font-bold">Price Range</div>
       <form className="flex items-center gap-2" onSubmit={onSubmit}>
         <Input
           type="number"
@@ -183,25 +284,25 @@ function PriceFilter({
           placeholder="Min"
           value={minInput}
           onChange={(e) => setMinInput(e.target.value)}
-          className="w-20"
+          className="flex-1"
         />
-        <span>-</span>
+        <span className="text-muted-foreground">-</span>
         <Input
           type="number"
           name="max"
           placeholder="Max"
           value={maxInput}
           onChange={(e) => setMaxInput(e.target.value)}
-          className="w-20"
+          className="flex-1"
         />
-        <Button type="submit">Go</Button>
+        <Button type="submit" size="sm">Go</Button>
       </form>
       {(!!minDefaultInput || !!maxDefaultInput) && (
         <button
           onClick={() => updatePriceRange(undefined, undefined)}
           className="text-sm text-primary hover:underline"
         >
-          Clear
+          Clear Price
         </button>
       )}
     </div>
