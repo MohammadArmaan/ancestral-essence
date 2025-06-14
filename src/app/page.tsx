@@ -3,6 +3,7 @@ import CTASection from "@/components/CTASection";
 import FeaturedProducts from "@/components/FeaturedProducts";
 import FeaturesSection from "@/components/FeaturesSection";
 import HeroSlider from "@/components/HeroSlider";
+import HeroSliderVideo from "@/components/HeroSliderVideo";
 import LoadingSkeleton from "@/components/LoadingSkeleton";
 import ScrollingRibbon from "@/components/ScrollingRibbon";
 import TestimonialsSection from "@/components/TestimonialsSection";
@@ -14,7 +15,7 @@ export default function Home() {
     <main className="w-full">
       {/* Full Width Hero Banner */}
       <div className="relative h-screen w-full">
-        <HeroSlider />
+        <HeroSliderVideo />
       </div>
 
       {/* Rest of the content with max-width */}
