@@ -39,7 +39,7 @@ const slideContents: SlideContent[] = [
     subtitle: "Natural Energy",
     description: "High-protein, grain-free recipes that fuel your pet's adventures and support their active lifestyle every day.",
     buttonText: "Discover Recipes",
-    buttonLink: "/featured-products"
+    buttonLink: "/blog"
   },
   {
     image: banner3,

@@ -15,7 +15,7 @@ export default function Home() {
     <main className="w-full">
       {/* Full Width Hero Banner */}
       <div className="relative h-screen w-full">
-        <HeroSliderVideo />
+        <HeroSlider />
       </div>
 
       {/* Rest of the content with max-width */}
