@@ -279,3 +279,14 @@
 .bg-gradient-radial {
   background: radial-gradient(circle, var(--tw-gradient-stops));
 }
+
+@font-face {
+  font-family: 'The Seasons';
+  src: url('/fonts/TheSeasons-Regular.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+}
+
+.seasons-font {
+  font-family: 'The Seasons', serif;
+}

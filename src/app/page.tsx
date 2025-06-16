@@ -14,9 +14,9 @@ export default function Home() {
   return (
     <main className="w-full">
       {/* Full Width Hero Banner */}
-      <div className="relative h-screen w-full">
+      {/* <div className="relative h-screen w-full"> */}
         <HeroSlider />
-      </div>
+      {/* </div> */}
 
       {/* Rest of the content with max-width */}
 
@@ -28,7 +28,7 @@ export default function Home() {
         <Suspense fallback={<LoadingSkeleton />}>
           <FeaturedProducts />
         </Suspense>
-        
+
         {/* Features Section */}
         <FeaturesSection />
 
