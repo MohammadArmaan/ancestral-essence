@@ -24,16 +24,17 @@ export default function Home() {
       <ScrollingRibbon />
 
       <div className="mx-auto max-w-7xl space-y-16 px-5 py-16">
+        {/* Featured Products */}
+        <Suspense fallback={<LoadingSkeleton />}>
+          <FeaturedProducts />
+        </Suspense>
+        
         {/* Features Section */}
         <FeaturesSection />
 
         {/* About Section */}
         <AboutSection />
 
-        {/* Featured Products */}
-        <Suspense fallback={<LoadingSkeleton />}>
-          <FeaturedProducts />
-        </Suspense>
 
         {/* Why Choose Us */}
         <WhyChooseUsSection />

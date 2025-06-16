@@ -1208,8 +1208,51 @@ export default function ProductDetails({ product }: ProductDetailsProps) {
                   className="h-12 w-full bg-primary text-white"
                 />
               )}
+              
             </div>
+            {/* trust Signals - Mobile layout */}
+            <div className="block border-t border-gray-200 pt-6 dark:border-gray-700 lg:hidden">
+                  <h3 className="mb-4 text-xl text-center font-semibold text-gray-900 dark:text-white">
+                    Why Shop With Us
+                  </h3>
+                  <div className="grid gap-4 sm:grid-cols-1 md:grid-cols-2">
+                    <div className="flex flex-col items-center rounded-lg bg-gray-50 p-4 text-center transition-all hover:scale-105 dark:bg-gray-800">
+                      <div className="mb-3 flex h-10 w-10 items-center justify-center rounded-full bg-green-100 dark:bg-green-900/30">
+                        <ShieldCheckIcon className="h-5 w-5 text-green-600 dark:text-green-400" />
+                      </div>
+                      <h4 className="mb-1 text-sm font-semibold text-gray-900 dark:text-white">
+                        Secure Payment
+                      </h4>
+                      <p className="text-xs text-gray-600 dark:text-gray-400">
+                        SSL Encrypted Checkout
+                      </p>
+                    </div>
+                    <div className="flex flex-col items-center rounded-lg bg-gray-50 p-4 text-center transition-all hover:scale-105 dark:bg-gray-800">
+                      <div className="mb-3 flex h-10 w-10 items-center justify-center rounded-full bg-blue-100 dark:bg-blue-900/30">
+                        <TruckIcon className="h-5 w-5 text-blue-600 dark:text-blue-400" />
+                      </div>
+                      <h4 className="mb-1 text-sm font-semibold text-gray-900 dark:text-white">
+                        Free Shipping
+                      </h4>
+                      <p className="text-xs text-gray-600 dark:text-gray-400">
+                        On orders above ₹1000
+                      </p>
+                    </div>
+                    <div className="flex flex-col items-center rounded-lg bg-gray-50 p-4 text-center transition-all hover:scale-105 dark:bg-gray-800">
+                      <div className="mb-3 flex h-10 w-10 items-center justify-center rounded-full bg-purple-100 dark:bg-purple-900/30">
+                        <RefreshCwIcon className="h-5 w-5 text-purple-600 dark:text-purple-400" />
+                      </div>
+                      <h4 className="mb-1 text-sm font-semibold text-gray-900 dark:text-white">
+                        Easy Returns
+                      </h4>
+                      <p className="text-xs text-gray-600 dark:text-gray-400">
+                        30 day return policy
+                      </p>
+                    </div>
+                  </div>
+                </div>
           </div>
+          
         </div>
 
         {/* Desktop Layout - Side by side like the design */}
